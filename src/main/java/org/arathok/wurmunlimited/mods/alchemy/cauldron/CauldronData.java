@@ -16,7 +16,7 @@ public class CauldronData {
     //1= water in it
     //2= water is purified can add ingredients
     //3= add alchemical compound
-    //4= potion precurser liquid there, turning slowly into potion liquid
+    //4-8= potion precurser liquid there, turning slowly into potion liquid depending on color
     byte cauldronState = 0;
 
     float finalql;

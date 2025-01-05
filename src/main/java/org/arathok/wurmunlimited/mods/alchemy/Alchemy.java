@@ -11,6 +11,7 @@ import com.wurmonline.server.players.Player;
 import org.arathok.wurmunlimited.mods.alchemy.addiction.Addiction;
 import org.arathok.wurmunlimited.mods.alchemy.addiction.AddictionHandler;
 import org.arathok.wurmunlimited.mods.alchemy.cauldron.CauldronBehaviour;
+import org.arathok.wurmunlimited.mods.alchemy.cauldron.CauldronPoller;
 import org.arathok.wurmunlimited.mods.alchemy.enchantments.Enchantment;
 import org.arathok.wurmunlimited.mods.alchemy.enchantments.EnchantmentHandler;
 import org.arathok.wurmunlimited.mods.alchemy.enchantments.ServerTravelHook;
@@ -38,9 +39,7 @@ public class Alchemy implements WurmServerMod, Initable, PreInitable, Configurab
 	public static Connection dbconn;
 	public static boolean finishedDbReadingAddictions = false;
 	public static boolean finishedDbReadingEnchantments =false;
-
-
-
+	private long nextCauldronPoll=0;
 
 
 	@Override
@@ -195,6 +194,7 @@ public class Alchemy implements WurmServerMod, Initable, PreInitable, Configurab
 				logger.log(Level.INFO, "Alchemy is pulling DB entries");
 				new EnchantmentHandler();
 				Enchantment.readFromSQL(dbconn);
+				nextCauldronPoll=System.currentTimeMillis()+5000;
 
 			}
 
@@ -210,6 +210,12 @@ public class Alchemy implements WurmServerMod, Initable, PreInitable, Configurab
 
 			if(finishedDbReadingEnchantments)
 			EnchantmentHandler.RemoveEnchantment();
+
+			if (nextCauldronPoll > System.currentTimeMillis())
+			{
+				CauldronPoller.pollCauldrons();
+				nextCauldronPoll=System.currentTimeMillis()+5000;
+			}
 
 		} catch (SQLException e) {
 			Alchemy.logger.log(Level.INFO,"Database was closed or could not be written to!",e);
