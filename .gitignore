@@ -47,3 +47,8 @@ Alchemy.iml
 *.bak
 *.jpg
 *.ogg
+*.png
+*.blend1
+*.mtl
+*.obj
+*.wom
