@@ -1,0 +1,22 @@
+# Blender 4.0.2 MTL File: 'CauldronHoch.blend'
+# www.blender.org
+
+newmtl Cauldron_bolts
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd Cauldron_BaseColor.png
+
+newmtl feet_main
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd feet_BaseColor.png

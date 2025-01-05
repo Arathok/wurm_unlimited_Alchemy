@@ -11,20 +11,20 @@ import java.io.IOException;
 //TODO: write insert before to SimpleCreationEntry run(Creature performer, Item source, long targetId, float counter) throws FailedException, NoSuchSkillException, NoSuchItemException, IllegalArgumentException {
 public class AlchItems {
     public static int leaderId, phialId, mouldClayId, mouldPotteryId, purifiedWaterId, alchemicalCompoundId,
-            glassMixtureId, glassId, weakLegsId, gemPowderId, coalDustId, coalFilterId, alchemicalCauldronId, suspiciousStewId;
+            glassMixtureId, glassId, weakLegsId, gemPowderId, coalDustId, coalFilterId, alchemicalCauldronId;
 
     public static ItemTemplate phial, mouldClay, mouldPottery, purifiedWater, alchemicalCompound, glassMixture, glass,
-            weakLegs, gemPowder, coalDust, coalFilter, leader, alchemicalCauldron, suspiciousStew;
+            weakLegs, gemPowder, coalDust, coalFilter, leader, alchemicalCauldron;
     public static short mouldClayIcon, mouldPotteryIcon, glassMixIcon, glassIcon, phialIcon;
 
     public static void makeIcons() {
         mouldClayIcon = Iconzz.getInstance().addIcon("arathok.alchemy.mouldcClayIcon",
-                "org/arathok/wurmunlimited/mods/alchemy/icons/phialMouldClay.png");
+                "mods/alchemy/icons/phialMouldClay.png");
         mouldPotteryIcon = Iconzz.getInstance().addIcon("arathok.alchemy.mouldcPotteryIcon",
-                "org/arathok/wurmunlimited/mods/alchemy/icons/phialMouldPottery.png");
-        glassMixIcon = Iconzz.getInstance().addIcon("arathok.alchemy.glassMixIcon", "org/arathok/wurmunlimited/mods/alchemy/icons/glassMix.png");
-        glassIcon = Iconzz.getInstance().addIcon("arathok.alchemy.glassIcon", "org/arathok/wurmunlimited/mods/alchemy/icons/glas.png");
-        phialIcon = Iconzz.getInstance().addIcon("arathok.alchemy.phialIcon", "org/arathok/wurmunlimited/mods/alchemy/icons/phial.png");
+                "mods/alchemy/icons/phialMouldPottery.png");
+        glassMixIcon = Iconzz.getInstance().addIcon("arathok.alchemy.glassMixIcon", "mods/alchemy/icons/glassMix.png");
+        glassIcon = Iconzz.getInstance().addIcon("arathok.alchemy.glassIcon", "mods/alchemy/icons/glas.png");
+        phialIcon = Iconzz.getInstance().addIcon("arathok.alchemy.phialIcon", "mods/alchemy/icons/phial.png");
     }
 
     private static void registerLeader() throws IOException {
@@ -36,7 +36,7 @@ public class AlchItems {
                         + " Thanks EmmaGrace for pushing me over the edge and pushing me to make this mod.  "
                         + " Thank you Wurm Modding Community Discord for hours of help!")
                 .modelName("model.decoration.statuette.magranon.").imageNumber((short) IconConstants.ICON_FOOD_PIGFOOD)
-                .itemTypes(new short[]{ItemTypes.ITEM_TYPE_POTTERY, ItemTypes.ITEM_TYPE_PLANTABLE,
+                .itemTypes(new short[] { ItemTypes.ITEM_TYPE_POTTERY, ItemTypes.ITEM_TYPE_PLANTABLE,
                         ItemTypes.ITEM_TYPE_DECORATION, ItemTypes.ITEM_TYPE_TURNABLE, ItemTypes.ITEM_TYPE_NO_IMPROVE,
                         // ItemTypes.ITEM_TYPE_TRANSPORTABLE,
                         ItemTypes.ITEM_TYPE_TOOL, ItemTypes.ITEM_TYPE_METAL,
@@ -51,23 +51,25 @@ public class AlchItems {
     private static void registerCauldron() throws IOException {
         alchemicalCauldron = new ItemTemplateBuilder("arathok.alchemy.alchemicalCauldron").name("alchemical cauldron", "alchemical cauldrons",
                         "A heavy alchemical cauldron made from steel, ready to be filled with water. It can be filled with all sorts of alchemical ingredients to turn them into potions!")
-                .modelName("model.decoration.cauldron.").imageNumber((short) IconConstants.ICON_TOOL_CAULDRON).itemTypes(new short[]{
+                .modelName("model.decoration.cauldron.").imageNumber((short) IconConstants.ICON_TOOL_CAULDRON).itemTypes(new short[] {
 
                         ItemTypes.ITEM_TYPE_PLANTABLE, ItemTypes.ITEM_TYPE_DECORATION, ItemTypes.ITEM_TYPE_TURNABLE,
                         ItemTypes.ITEM_TYPE_HOLLOW,
                         ItemTypes.ITEM_TYPE_CONTAINER_LIQUID,
-                        // ItemTypes.ITEM_TYPE_TRANSPORTABLE,
+                        ItemTypes.ITEM_TYPE_USE_GROUND_ONLY,
+                        ItemTypes.ITEM_TYPE_TRANSPORTABLE,
                         ItemTypes.ITEM_TYPE_METAL,
+                        ItemTypes.ITEM_TYPE_NOPUT,
 
-                }).decayTime(9072000L).dimensions(50, 30, 50).weightGrams(58000).material(Materials.MATERIAL_STONE)
+                }).decayTime(9072000L).dimensions(30, 25, 30).weightGrams(35000).material(Materials.MATERIAL_STEEL)
                 .behaviourType((short) 1).primarySkill(SkillList.ALCHEMY_NATURAL).difficulty(10) // no hard lock
                 .build();
 
-        alchemicalCauldronId = alchemicalCauldron.getTemplateId();
+        alchemicalCauldronId =  alchemicalCauldron.getTemplateId();
         CreationEntryCreator
-                .createAdvancedEntry(SkillList.SMITHING_BLACKSMITHING, ItemList.hammerMetal, ItemList.steelBar, alchemicalCauldronId, false, true,
+                .createAdvancedEntry(SkillList.SMITHING_BLACKSMITHING, ItemList.hammerMetal, ItemList.steelBar,  alchemicalCauldronId, false, true,
                         0.0f, false, false, 0, 5, CreationCategories.ALCHEMY)
-                .addRequirement(new CreationRequirement(1, ItemList.steelBar, 53, true))
+                .addRequirement(new CreationRequirement(1, ItemList.steelBar, 35, true))
                 .addRequirement(new CreationRequirement(2, ItemList.ironBand, 4, true));
     }
 
@@ -76,12 +78,12 @@ public class AlchItems {
                 .name("Weak Legs", "Weak Legs", " You look at your trembling legs. You are addicted "
                         + "to potions and feel weak. You feel like your whole body itself is too heavy to carry around.")
                 .modelName("model.decoration.statuette.magranon.").imageNumber((short) IconConstants.ICON_ICON_BODY_LEG)
-                .itemTypes(new short[]{ItemTypes.ITEM_TYPE_NODROP, ItemTypes.ITEM_TYPE_NODISCARD,
+                .itemTypes(new short[] { ItemTypes.ITEM_TYPE_NODROP, ItemTypes.ITEM_TYPE_NODISCARD,
                         ItemTypes.ITEM_TYPE_NOPUT, ItemTypes.ITEM_TYPE_NOBANK, ItemTypes.ITEM_TYPE_NO_IMPROVE,
                         // ItemTypes.ITEM_TYPE_NO_CREATE,
                         ItemTypes.ITEM_TYPE_NORENAME, ItemTypes.ITEM_TYPE_NOTRADE, ItemTypes.ITEM_TYPE_NOMOVE,
                         ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET
-                        // ItemTypes.ITEM_TYPE_TRANSPORTABLE,
+                // ItemTypes.ITEM_TYPE_TRANSPORTABLE,
 
                 }).decayTime(90720000000L).dimensions(8, 8, 15).weightGrams(105000).material(Materials.MATERIAL_BONE)
                 .behaviourType((short) 1).primarySkill(SkillList.POTTERY).difficulty(30) // no hard lock
@@ -93,10 +95,10 @@ public class AlchItems {
 
     private static void registerGlassMixture() throws IOException {
         glassMixture = new ItemTemplateBuilder("arathok.alchemy.glassMixture").name("glass mixture", "glass mixtures",
-                        "A mixture made from sand, ash, and sandstone shards. Under high temperatures it will turn into a honey"
-                                + "like paste. cooling it off you will get crystal clear glass. But what would a pile of glass be of use for? If you had some kind of a"
-                                + "mould you could press the hot glass into shape...")
-                .modelName("model.decoration.glassMixture.").imageNumber(glassMixIcon).itemTypes(new short[]{
+                "A mixture made from sand, ash, and sandstone shards. Under high temperatures it will turn into a honey"
+                        + "like paste. cooling it off you will get crystal clear glass. But what would a pile of glass be of use for? If you had some kind of a"
+                        + "mould you could press the hot glass into shape...")
+                .modelName("model.decoration.glassMixture.").imageNumber(glassMixIcon).itemTypes(new short[] {
 
                         ItemTypes.ITEM_TYPE_PLANTABLE, ItemTypes.ITEM_TYPE_DECORATION, ItemTypes.ITEM_TYPE_TURNABLE,
                         ItemTypes.ITEM_TYPE_NO_IMPROVE,
@@ -118,9 +120,9 @@ public class AlchItems {
 
     private static void registerGlass() throws IOException {
         glass = new ItemTemplateBuilder("arathok.alchemy.glass").name("glass", "glass",
-                        "Crystal clear glass. If you could make a phial out of it, it could contain magic stored in potions. "
-                                + "You should heat it before pressing it.")
-                .modelName("model.decoration.flask.").imageNumber(glassIcon).itemTypes(new short[]{
+                "Crystal clear glass. If you could make a phial out of it, it could contain magic stored in potions. "
+                        + "You should heat it before pressing it.")
+                .modelName("model.decoration.flask.").imageNumber(glassIcon).itemTypes(new short[] {
 
                         ItemTypes.ITEM_TYPE_PLANTABLE, ItemTypes.ITEM_TYPE_DECORATION, ItemTypes.ITEM_TYPE_TURNABLE,
                         ItemTypes.ITEM_TYPE_NO_IMPROVE,
@@ -140,9 +142,9 @@ public class AlchItems {
                 .name("phial mould", "phial moulds",
                         "A clay mould that could be used to make phials, but it still needs to be fired.")
                 .modelName("model.mouldClay.").imageNumber(mouldClayIcon)
-                .itemTypes(new short[]{ItemTypes.ITEM_TYPE_PLANTABLE, ItemTypes.ITEM_TYPE_DECORATION,
+                .itemTypes(new short[] { ItemTypes.ITEM_TYPE_PLANTABLE, ItemTypes.ITEM_TYPE_DECORATION,
                         ItemTypes.ITEM_TYPE_TURNABLE, ItemTypes.ITEM_TYPE_UNFIRED, ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        // ItemTypes.ITEM_TYPE_TRANSPORTABLE,
+                // ItemTypes.ITEM_TYPE_TRANSPORTABLE,
 
                 }).decayTime(9072000L).dimensions(8, 8, 15).weightGrams(500).material(Materials.MATERIAL_CLAY)
                 .behaviourType((short) 1).primarySkill(SkillList.POTTERY).difficulty(30) // no hard lock
@@ -158,10 +160,10 @@ public class AlchItems {
         mouldPottery = new ItemTemplateBuilder("arathok.alchemy.mouldPottery")
                 .name("phial mould", "phial moulds", "A pottery mould that is used to make glass phials")
                 .modelName("model.mouldPottery.").imageNumber(mouldPotteryIcon)
-                .itemTypes(new short[]{ItemTypes.ITEM_TYPE_POTTERY, ItemTypes.ITEM_TYPE_PLANTABLE,
+                .itemTypes(new short[] { ItemTypes.ITEM_TYPE_POTTERY, ItemTypes.ITEM_TYPE_PLANTABLE,
                         ItemTypes.ITEM_TYPE_DECORATION, ItemTypes.ITEM_TYPE_TURNABLE,
                         // ItemTypes.ITEM_TYPE_TRANSPORTABLE,
-                        ItemTypes.ITEM_TYPE_TOOL, ItemTypes.ITEM_TYPE_NO_IMPROVE, ItemTypes.ITEM_TYPE_METAL,})
+                        ItemTypes.ITEM_TYPE_TOOL, ItemTypes.ITEM_TYPE_NO_IMPROVE, ItemTypes.ITEM_TYPE_METAL, })
                 .decayTime(9072000L).dimensions(8, 8, 15).weightGrams(500).material(Materials.MATERIAL_POTTERY)
                 .behaviourType((short) 1).primarySkill(SkillList.POTTERY).difficulty(30) // no hard lock
                 .build();
@@ -176,7 +178,7 @@ public class AlchItems {
                         + "capable of holding strong magic powers.")
 
                 .modelName("model.phial.").imageNumber(phialIcon)
-                .itemTypes(new short[]{ItemTypes.ITEM_TYPE_BULK, ItemTypes.ITEM_TYPE_PLANTABLE,
+                .itemTypes(new short[] { ItemTypes.ITEM_TYPE_BULK, ItemTypes.ITEM_TYPE_PLANTABLE,
                         ItemTypes.ITEM_TYPE_DECORATION, ItemTypes.ITEM_TYPE_TURNABLE,
                         // ItemTypes.ITEM_TYPE_TRANSPORTABLE,
                         ItemTypes.ITEM_TYPE_TOOL, ItemTypes.ITEM_TYPE_NO_IMPROVE, ItemTypes.ITEM_TYPE_METAL,
@@ -197,7 +199,7 @@ public class AlchItems {
                 .name("Coal Dust", "Coal Dust",
                         "Dust from Coal, that can be used in a filter of some sorts. It has good purifying abilities!")
                 .modelName("model.coalDust.").imageNumber((short) IconConstants.ICON_LIQUID_DYE_BLACK)
-                .itemTypes(new short[]{
+                .itemTypes(new short[] {
 
                         ItemTypes.ITEM_TYPE_BULK, ItemTypes.ITEM_TYPE_NO_IMPROVE,
 
@@ -212,9 +214,9 @@ public class AlchItems {
 
     private static void registerCharcoalFilter() throws IOException {
         coalFilter = new ItemTemplateBuilder("arathok.alchemy.charcoalFilter").name("Coal filter", "Coal filter",
-                        "A filter made from charcoal and Cloth. It can be used to purify water but will get used up over time.")
+                "A filter made from charcoal and Cloth. It can be used to purify water but will get used up over time.")
                 .modelName("model.coalFilter.").imageNumber((short) IconConstants.ICON_WOOD_BED_FRAME)
-                .itemTypes(new short[]{
+                .itemTypes(new short[] {
 
                         ItemTypes.ITEM_TYPE_TOOL, ItemTypes.ITEM_TYPE_NO_IMPROVE, ItemTypes.ITEM_TYPE_NAMED,
                         ItemTypes.ITEM_TYPE_BULK, ItemTypes.ITEM_TYPE_DECORATION, ItemTypes.ITEM_TYPE_PLANTABLE,
@@ -241,7 +243,7 @@ public class AlchItems {
                         "Water that has been cleaned from mundane impurities"
                                 + " and is ready to take in a powerful essence.")
                 .modelName("model.purfiedWater.").imageNumber((short) IconConstants.ICON_LIQUID_WATER)
-                .itemTypes(new short[]{
+                .itemTypes(new short[] {
 
                         ItemTypes.ITEM_TYPE_BULK, ItemTypes.ITEM_TYPE_LIQUID, ItemTypes.ITEM_TYPE_METAL,
                         ItemTypes.ITEM_TYPE_NO_IMPROVE,
@@ -265,7 +267,7 @@ public class AlchItems {
                                 + "it should be used fresh but seems stable enough for a day.")
 
                 .modelName("model.alchemicalCompound.").imageNumber((short) IconConstants.ICON_LIQUID_DYE_WHITE)
-                .itemTypes(new short[]{ItemTypes.ITEM_TYPE_BULK, ItemTypes.ITEM_TYPE_LIQUID,
+                .itemTypes(new short[] { ItemTypes.ITEM_TYPE_BULK, ItemTypes.ITEM_TYPE_LIQUID,
                         ItemTypes.ITEM_TYPE_METAL, ItemTypes.ITEM_TYPE_NO_IMPROVE,
 
                 }).decayTime(691200L).dimensions(10, 10, 10).weightGrams(1000).material(Materials.MATERIAL_MAGIC)
@@ -280,8 +282,8 @@ public class AlchItems {
 
     private static void registerGemPowder() throws IOException {
         gemPowder = new ItemTemplateBuilder("arathok.alchemy.gemPowder").name("Gem powder", "Gem powders",
-                        "Ground up gems that could be very well used in some potions that need some extra magical power")
-                .modelName("model.gemPowder.").imageNumber((short) IconConstants.ICON_FOOD_SALT).itemTypes(new short[]{
+                "Ground up gems that could be very well used in some potions that need some extra magical power")
+                .modelName("model.gemPowder.").imageNumber((short) IconConstants.ICON_FOOD_SALT).itemTypes(new short[] {
 
                         ItemTypes.ITEM_TYPE_PLANTABLE, ItemTypes.ITEM_TYPE_DECORATION, ItemTypes.ITEM_TYPE_TURNABLE,
                         ItemTypes.ITEM_TYPE_NO_IMPROVE,
@@ -306,23 +308,7 @@ public class AlchItems {
                 gemPowderId, false, true, 0f, false, false, 0, 30, CreationCategories.ALCHEMY);
     }
 
-    private static void registerSuspiciousStew() throws IOException {
-        suspiciousStew = new ItemTemplateBuilder("arathok.alchemy.suspiciousStew")
-                .name("suspicious stew", "suspicious stew",
-                        "A violetish glibbery stew from a faíled alchemic experiment. You think it might be consumable, only the gods know what effects it might have on your body.")
-
-                .modelName("model.alchemicalCompound.").imageNumber((short) IconConstants.ICON_LIQUID_DYE_WHITE)
-                .itemTypes(new short[]{ItemTypes.ITEM_TYPE_BULK, ItemTypes.ITEM_TYPE_LIQUID,
-                        ItemTypes.ITEM_TYPE_METAL, ItemTypes.ITEM_TYPE_NO_IMPROVE,
-
-                }).decayTime(691200L).dimensions(10, 10, 10).weightGrams(1000).material(Materials.MATERIAL_MAGIC)
-                .behaviourType((short) 1).primarySkill(SkillList.ALCHEMY_NATURAL).difficulty(10) // no hard lock
-                .build();
-
-        suspiciousStewId = suspiciousStew.getTemplateId();
-
-
-    }
+    /// PASTES
 
     public static void register() throws IOException {
         makeIcons();
@@ -347,9 +333,8 @@ public class AlchItems {
         }
         registerAlchemicalCompound();
         registerGemPowder();
-        registerCauldron();
-        registerSuspiciousStew();
-
 
     }
+
+
 }

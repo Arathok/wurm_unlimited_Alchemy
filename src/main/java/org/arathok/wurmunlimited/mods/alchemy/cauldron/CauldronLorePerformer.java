@@ -5,6 +5,7 @@ import com.wurmonline.server.behaviours.Action;
 import com.wurmonline.server.behaviours.ActionEntry;
 import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.items.Item;
+
 import org.gotti.wurmunlimited.modsupport.actions.ActionEntryBuilder;
 import org.gotti.wurmunlimited.modsupport.actions.ActionPerformer;
 import org.gotti.wurmunlimited.modsupport.actions.ActionPropagation;
@@ -24,8 +25,10 @@ public class CauldronLorePerformer implements ActionPerformer {
 
                     // 28 // NOSTACK IN FIGHT
             };
-                    actionEntry = new ActionEntryBuilder((short) ModActions.getNextActionId(), "Lore", "thinking",
-                            types)
+
+            actionEntry = new ActionEntryBuilder((short) ModActions.getNextActionId(), "Lore", "thinking",
+                    types)
+
 
                             .range(4).priority(1).build();
 
@@ -53,16 +56,20 @@ public class CauldronLorePerformer implements ActionPerformer {
     @Override
     public boolean action(Action action, Creature performer, Item target, short num, float counter) {
 
+
         if (canUse(performer,target))
         {
+
             CauldronData cauldron= Cauldrons.cauldrons.get(target.getWurmId());
             if (cauldron==null)
             {
                 cauldron=new CauldronData();
                 Cauldrons.cauldrons.put(target.getWurmId(),cauldron);
             }
+
             cauldron.lore(performer);
         }
+
 
         return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION,
                 ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
